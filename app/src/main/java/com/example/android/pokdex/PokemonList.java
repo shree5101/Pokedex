@@ -1,6 +1,6 @@
 package com.example.android.pokdex;
 
-class PokemonList {
+public class PokemonList {
 
     public String mPokemonImageUrl;
     public String mPokemonName;

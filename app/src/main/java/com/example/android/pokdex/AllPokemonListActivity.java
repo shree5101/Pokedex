@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,9 +29,8 @@ public class AllPokemonListActivity extends AppCompatActivity implements LoaderM
     private TextView mEmptyStateTextView;
 
     private PokemonListAdapter mAdapter;
-
+    PokemonList list;
     private static final String POKEMON_NAMES_URL = "https://pokeapi.co/api/v2/pokemon?limit=964";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +59,14 @@ public class AllPokemonListActivity extends AppCompatActivity implements LoaderM
         mAdapter = new PokemonListAdapter(this, new ArrayList<>());
         namesListView.setAdapter(mAdapter);
 
-        namesListView.setOnClickListener(new View.OnClickListener() {
+        namesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent pokemonInfo = new Intent(AllPokemonListActivity.this, PokemonInfoActivity.class);
+                pokemonInfo.putExtra("pokemon_name", list.getPokemonName())
                 startActivity(pokemonInfo);
             }
         });
-
     }
 
     @NonNull
