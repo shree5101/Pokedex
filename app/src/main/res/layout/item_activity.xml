@@ -10,6 +10,7 @@
         android:divider="#801336"
         android:dividerHeight="1dp"
         android:layout_height="match_parent"
+        android:drawSelectorOnTop="true"
         android:layout_margin="5dp">
     </ListView>
 

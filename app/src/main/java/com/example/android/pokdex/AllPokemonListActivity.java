@@ -2,6 +2,7 @@ package com.example.android.pokdex;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -57,6 +58,14 @@ public class AllPokemonListActivity extends AppCompatActivity implements LoaderM
 
         mAdapter = new PokemonListAdapter(this, new ArrayList<>());
         namesListView.setAdapter(mAdapter);
+
+        namesListView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pokemonInfo = new Intent(AllPokemonListActivity.this, PokemonInfoActivity.class);
+                startActivity(pokemonInfo);
+            }
+        });
 
     }
 

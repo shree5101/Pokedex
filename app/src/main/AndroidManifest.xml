@@ -73,6 +73,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name=".PokemonInfoActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"
