@@ -7,14 +7,13 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
     Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen_activity);
-        ImageView bottle = findViewById(R.id.pokeball_splash_screen);
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
