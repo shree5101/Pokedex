@@ -5,11 +5,22 @@ public class PokemonList {
     public String mPokemonImageUrl;
     public String mPokemonName;
 
-
-
     public PokemonList(String pokemonName, String pokemonImageUrl) {
-        mPokemonName = pokemonName;
-        mPokemonImageUrl = pokemonImageUrl;
+        super();
+        this.mPokemonName = pokemonName;
+        this.mPokemonImageUrl = pokemonImageUrl;
+    }
+
+    public PokemonList() {
+
+    }
+
+    public void setPokemonImageUrl(String mPokemonImageUrl) {
+        this.mPokemonImageUrl = mPokemonImageUrl;
+    }
+
+    public void setPokemonName(String mPokemonName) {
+        this.mPokemonName = mPokemonName;
     }
 
     public String getPokemonName() {

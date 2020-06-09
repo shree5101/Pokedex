@@ -21,16 +21,22 @@ import androidx.loader.content.Loader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AllPokemonListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<PokemonList>> {
 
     private static final int POKEMON_LIST_LOADER_ID = 1;
 
     private TextView mEmptyStateTextView;
+    private final PokemonListAdapter mAdapter;
 
-    private PokemonListAdapter mAdapter;
-    PokemonList list;
+
     private static final String POKEMON_NAMES_URL = "https://pokeapi.co/api/v2/pokemon?limit=964";
+
+    public AllPokemonListActivity(PokemonListAdapter mAdapter) {
+        this.mAdapter = mAdapter;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +69,12 @@ public class AllPokemonListActivity extends AppCompatActivity implements LoaderM
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent pokemonInfo = new Intent(AllPokemonListActivity.this, PokemonInfoActivity.class);
-                pokemonInfo.putExtra("pokemon_name", list.getPokemonName())
+                pokemonInfo.putExtra("pokemon_name", Objects.requireNonNull(mAdapter.getItem(position)).getPokemonName());
+                pokemonInfo.putExtra("pokemon_image", Objects.requireNonNull(mAdapter.getItem(position)).getPokemonName());
                 startActivity(pokemonInfo);
             }
         });
+
     }
 
     @NonNull

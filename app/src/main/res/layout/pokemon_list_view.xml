@@ -4,6 +4,7 @@
     android:background="#2d132c"
     android:layout_height="match_parent">
 
+
     <ListView
         android:id="@+id/pokemon_list_view"
         android:layout_width="match_parent"

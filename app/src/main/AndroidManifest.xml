@@ -26,12 +26,14 @@
         <activity
             android:name=".AllPokemonListActivity"
             android:label="Pokemon"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateHidden">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".MainActivity"
+                android:resource="@xml/searchable"/>
         </activity>
         <activity
             android:name=".ItemsActivity"
