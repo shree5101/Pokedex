@@ -24,7 +24,7 @@
         <activity android:name=".MainActivity"
             android:theme="@style/SplashScreen"/>
         <activity
-            android:name=".AllPokemonListActivity"
+            android:name=".PokemonListActivity"
             android:label="Pokemon"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateHidden">

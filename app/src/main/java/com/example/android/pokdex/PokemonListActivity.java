@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AllPokemonListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<PokemonList>> {
+public class PokemonListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<PokemonList>> {
 
     private static final int POKEMON_LIST_LOADER_ID = 1;
 
@@ -66,7 +63,7 @@ public class AllPokemonListActivity extends AppCompatActivity implements LoaderM
         namesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent pokemonInfo = new Intent(AllPokemonListActivity.this, PokemonInfoActivity.class);
+                Intent pokemonInfo = new Intent(PokemonListActivity.this, PokemonInfoActivity.class);
                 pokemonInfo.putExtra("pokemon_name", Objects.requireNonNull(mAdapter.getItem(position)).getPokemonName());
                 pokemonInfo.putExtra("pokemon_image", Objects.requireNonNull(mAdapter.getItem(position)).getPokemonImageUrl());
                 startActivity(pokemonInfo);

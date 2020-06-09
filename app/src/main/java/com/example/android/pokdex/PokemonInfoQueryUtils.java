@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,16 +23,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class QueryUtils {
+public final class PokemonInfoQueryUtils {
 
 
-    private QueryUtils() {
+    private PokemonInfoQueryUtils() {
     }
 
 
-    public static List<PokemonList> extractPokemonNames(String requestUrl) {
+    public static List<PokemonInfoList> extractPokemonInfo(String requestUrl) {
 
-        ArrayList<PokemonList> names = new ArrayList<>();
+        ArrayList<PokemonInfoList> infoNew = new ArrayList<>();
 
         if (TextUtils.isEmpty(requestUrl)) {
             return null;
@@ -52,23 +54,13 @@ public final class QueryUtils {
             assert jsonResponse != null;
             JSONObject baseJsonResponse = new JSONObject(jsonResponse);
 
-            // Extract the JSONArray associated with the key called "features",
-            // which represents a list of features (or earthquakes).
-            JSONArray namesArray = baseJsonResponse.getJSONArray("results");
+            String height = baseJsonResponse.getString("height");
+            String weight = baseJsonResponse.getString("weight");
+            String baseExperience = baseJsonResponse.getString("base_experience");
 
-            for (int i = 0; i < namesArray.length(); i++) {
+            PokemonInfoList info = new PokemonInfoList(weight, height, baseExperience);
+            infoNew.add(info);
 
-                // Get a single earthquake at position i within the list of earthquakes
-                JSONObject currentName = namesArray.getJSONObject(i);
-
-                String pokemonName = currentName.getString("name");
-                String pokemonImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + (i + 1) + ".png";
-
-
-                PokemonList newPokemonName = new PokemonList(pokemonName, pokemonImageUrl);
-                names.add(newPokemonName);
-
-            }
 
         } catch (JSONException e) {
 
@@ -76,7 +68,7 @@ public final class QueryUtils {
         }
 
         // Return the list of earthquakes
-        return names;
+        return infoNew;
     }
 
     /**
