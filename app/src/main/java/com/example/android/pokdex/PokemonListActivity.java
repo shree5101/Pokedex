@@ -31,7 +31,7 @@ public class PokemonListActivity extends AppCompatActivity implements LoaderMana
     private PokemonListAdapter mAdapter;
 
 
-    private static final String POKEMON_NAMES_URL = "https://pokeapi.co/api/v2/pokemon?limit=964";
+    private static final String POKEMON_NAMES_URL = "https://pokeapi.co/api/v2/pokemon/";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +66,9 @@ public class PokemonListActivity extends AppCompatActivity implements LoaderMana
                 Intent pokemonInfo = new Intent(PokemonListActivity.this, PokemonInfoActivity.class);
                 pokemonInfo.putExtra("pokemon_name", Objects.requireNonNull(mAdapter.getItem(position)).getPokemonName());
                 pokemonInfo.putExtra("pokemon_image", Objects.requireNonNull(mAdapter.getItem(position)).getPokemonImageUrl());
+                pokemonInfo.putExtra("pokemon_weight", Objects.requireNonNull(mAdapter.getItem(position)).getPokemonWeight());
+                pokemonInfo.putExtra("pokemon_height", Objects.requireNonNull(mAdapter.getItem(position)).getPokemonHeight());
+                pokemonInfo.putExtra("base_experience", Objects.requireNonNull(mAdapter.getItem(position)).getPokemonBaseExperience());
                 startActivity(pokemonInfo);
             }
         });

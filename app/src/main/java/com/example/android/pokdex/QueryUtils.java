@@ -31,51 +31,59 @@ public final class QueryUtils {
     public static List<PokemonList> extractPokemonNames(String requestUrl) {
 
         ArrayList<PokemonList> names = new ArrayList<>();
+        StringBuilder requestUrlBuilder = new StringBuilder(requestUrl);
+        for (int j = 1; j <= 10; j++) {
+            requestUrlBuilder.append(j);
+            requestUrl = requestUrlBuilder.toString();
+            Log.v("MODIFIED URL", requestUrl);
 
-        if (TextUtils.isEmpty(requestUrl)) {
-            return null;
-        }
-
-        URL url = createUrl(requestUrl);
-
-        // Perform HTTP request to the URL and receive a JSON response back
-        String jsonResponse = null;
-        try {
-            jsonResponse = makeHttpRequest(url);
-        } catch (IOException e) {
-            Log.e("LOG_TAG", "Problem making the HTTP request.", e);
-        }
-
-        try {
-
-            // Create a JSONObject from the SAMPLE_JSON_RESPONSE string
-            assert jsonResponse != null;
-            JSONObject baseJsonResponse = new JSONObject(jsonResponse);
-
-            // Extract the JSONArray associated with the key called "features",
-            // which represents a list of features (or earthquakes).
-            JSONArray namesArray = baseJsonResponse.getJSONArray("results");
-
-            for (int i = 0; i < namesArray.length(); i++) {
-
-                // Get a single earthquake at position i within the list of earthquakes
-                JSONObject currentName = namesArray.getJSONObject(i);
-
-                String pokemonName = currentName.getString("name");
-                String pokemonImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + (i + 1) + ".png";
-
-
-                PokemonList newPokemonName = new PokemonList(pokemonName, pokemonImageUrl);
-                names.add(newPokemonName);
-
+            if (TextUtils.isEmpty(requestUrl)) {
+                return null;
             }
 
-        } catch (JSONException e) {
+            URL url = createUrl(requestUrl);
 
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            // Perform HTTP request to the URL and receive a JSON response back
+            String jsonResponse = null;
+            try {
+                jsonResponse = makeHttpRequest(url);
+            } catch (IOException e) {
+                Log.e("LOG_TAG", "Problem making the HTTP request.", e);
+            }
+
+            try {
+
+                // Create a JSONObject from the SAMPLE_JSON_RESPONSE string
+                assert jsonResponse != null;
+                JSONObject baseJsonResponse = new JSONObject(jsonResponse);
+
+                String pokemonName = baseJsonResponse.getString("name");
+                String pokemonImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + (j) + ".png";
+                String height = baseJsonResponse.getString("height");
+                String weight = baseJsonResponse.getString("weight");
+                String baseExperience = baseJsonResponse.getString("base_experience");
+
+
+                PokemonList newPokemonName = new PokemonList(pokemonName, pokemonImageUrl, weight, height, baseExperience);
+                names.add(newPokemonName);
+
+
+            } catch (JSONException e) {
+
+                Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            }
+            if (j < 10){
+                requestUrlBuilder.deleteCharAt(requestUrlBuilder.length() - 1);
+            } else if(j>=10 && j<100) {
+                requestUrlBuilder.deleteCharAt(requestUrlBuilder.length() - 1);
+                requestUrlBuilder.deleteCharAt(requestUrlBuilder.length() - 1);
+            } else {
+                requestUrlBuilder.deleteCharAt(requestUrlBuilder.length() - 1);
+                requestUrlBuilder.deleteCharAt(requestUrlBuilder.length() - 1);
+                requestUrlBuilder.deleteCharAt(requestUrlBuilder.length() - 1);
+            }
+
         }
-
-        // Return the list of earthquakes
         return names;
     }
 
